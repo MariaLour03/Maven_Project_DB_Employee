@@ -30,9 +30,9 @@ public class EmployeeService {
         Connection connection = DBConnection.getDBConnection();
 
         String selectSQL = "select * from employees where employeeNumber=?";
-        PreparedStatement preparedStatement = connection.prepareStatement(selectSQL);
-        preparedStatement.setInt(1, 1088);
-        ResultSet resultSet = preparedStatement.executeQuery();
+        PreparedStatement ps = connection.prepareStatement(selectSQL);
+        ps.setInt(1, 1088);
+        ResultSet resultSet = ps.executeQuery();
 
         while (resultSet.next()) {
             String name = resultSet.getString("firstName");
@@ -48,11 +48,11 @@ public class EmployeeService {
         Connection connection = DBConnection.getDBConnection();
 
         String selectSQL = "select * from employees where employeeNumber=? and lastName=?";
-        PreparedStatement preparedStatement = connection.prepareStatement(selectSQL);
+        PreparedStatement ps = connection.prepareStatement(selectSQL);
 
-        preparedStatement.setInt(1, 1165); // for first ? so it's index 1
-        preparedStatement.setString(2, "Jennings"); // for second ? so it's index 2
-        ResultSet resultSet = preparedStatement.executeQuery();
+        ps.setInt(1, 1165); // for first ? so it's index 1
+        ps.setString(2, "Jennings"); // for second ? so it's index 2
+        ResultSet resultSet = ps.executeQuery();
 
         while (resultSet.next()) {
             String name = resultSet.getString("firstName");
@@ -60,7 +60,6 @@ public class EmployeeService {
             System.out.println(name + " | " + email);
 
             connection.close();
-
         }
     }
 
@@ -70,17 +69,18 @@ public class EmployeeService {
 
         String selectSQL = "INSERT INTO EMPLOYEES(officeCode, firstName, lastName, email, extension, reportsTo," +
                 " vacationHours, employeeNumber, jobTitle) VALUES(?,?,?,?,?,?,?,?,?)";
-        PreparedStatement preparedStatement = connection.prepareStatement(selectSQL);
-        preparedStatement.setInt(1, 6);
-        preparedStatement.setString(2, "Jane");
-        preparedStatement.setString(3, "Doe");
-        preparedStatement.setString(4, "janedoe@gmail.com");
-        preparedStatement.setString(5, "x7071");
-        preparedStatement.setInt(6, 1002);
-        preparedStatement.setInt(7, 35);
-        preparedStatement.setInt(8, 1051);
-        preparedStatement.setString(9, "Administrator");
-        int affectRows = preparedStatement.executeUpdate();
+        PreparedStatement ps = connection.prepareStatement(selectSQL);
+        
+        ps.setInt(1, 6);
+        ps.setString(2, "Jane");
+        ps.setString(3, "Doe");
+        ps.setString(4, "janedoe@gmail.com");
+        ps.setString(5, "x7071");
+        ps.setInt(6, 1002);
+        ps.setInt(7, 35);
+        ps.setInt(8, 1051);
+        ps.setString(9, "Administrator");
+        int affectRows = ps.executeUpdate();
 
         System.out.println(affectRows + " rows was affected");
 
@@ -116,7 +116,6 @@ public class EmployeeService {
             String name = resultSet.getString("firstName");
             String email = resultSet.getString("email");
             System.out.println(name + " | " + email);
-
         }
         connection.close();
     }
