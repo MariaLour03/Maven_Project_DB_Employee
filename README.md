@@ -1,2 +1,2 @@
-# Maven_Project_DB_Employee
+# Maven_Project_Employee
 Maven Project -  Employees 
